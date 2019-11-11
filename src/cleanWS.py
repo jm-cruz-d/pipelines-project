@@ -10,3 +10,7 @@ def changeType(DF, column, types):
 def combCol(DF, nameNew, column1, column2):
     DF[nameNew] = DF[column1]+DF[column2]
     return DF
+
+
+def impCsv(DF, name):
+    return DF.to_csv(name, header=True, index=False)

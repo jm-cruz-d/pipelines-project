@@ -142,7 +142,13 @@ premierT = cw.combCol(premierT, 'Comb', 'players', 'season')
 spainT = cw.combCol(spainT, 'Comb', 'players', 'season')
 italyT = cw.combCol(italyT, 'Comb', 'players', 'season')
 
-
+#Import to csv
+cw.impCsv(bundT, './output/bundT.csv')
+cw.impCsv(frenchT, './output/frenchT.csv')
+cw.impCsv(hollT, './output/hollT.csv')
+cw.impCsv(premierT, './output/premierT.csv')
+cw.impCsv(spainT, './output/spainT.csv')
+cw.impCsv(italyT, './output/italyT.csv')
 
 
 

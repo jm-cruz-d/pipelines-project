@@ -7,10 +7,10 @@ import cleanWS as cw
 lfile = './input/top250-00-19.csv'
 
 #Open DataFrame
-def openDf(x):
-    with open(x, 'rb') as f:
+def openDf(file):
+    with open(file, 'rb') as f:
         result = chardet.detect(f.read())
-    return pd.read_csv(x, encoding=result['encoding'])
+    return pd.read_csv(file, encoding=result['encoding'])
 
 df = openDf(lfile)
 
@@ -74,7 +74,4 @@ df = cw.changeType(df, 'Summer', str)
 df = cw.combCol(df, 'Comb', 'Name', 'Summer')
 
 #Import DF to csv
-def impCsv(x):
-    return x.to_csv('./output/TransferLigas.csv', header=True, index=False)
-
-impCsv(df)
+cw.impCsv(df, './output/TransferLeagues.csv')
