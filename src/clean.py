@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 import re as re
 import chardet   #Character encoding auto-detection in Python
+import cleanWS as cw
 
-lfile = '../input/top250-00-19.csv'
+lfile = './input/top250-00-19.csv'
 
 #Open DataFrame
 def openDf(x):
@@ -42,8 +43,38 @@ def generaFiltros(x, y, ligas):
 slclig = ['Bundesliga','LaLiga','Premier League','League One', 'Serie A', 'Eredivisie']
 df = generaFiltros(df, 'League_from', slclig)
 
+#Convert Season in Summer transfermarket and ints values
+def convertSeason(DF, column, length):
+    se = sorted(list(set(DF[column])))
+    lista=[]
+    for s in se:
+        lista.append(s[:length])
+    for col in DF[column]:
+        for i in range(0,len(lista)):
+            if col == se[i]:
+                DF[column] = DF[column].replace({col: lista[i]})
+    return DF
+    
+df = convertSeason(df, 'Season', 4)
+
+def changeType(DF, column, types):
+    DF[column] = DF[column].astype(types)
+    return DF
+
+df = changeType(df, 'Season', int)
+
+def changeNamecol(DF, column, newname):
+    DF = DF.rename(columns={column: newname})
+    return DF
+
+df = changeNamecol(df, 'Season', 'Summer')
+
+#Combine columns
+df = cw.changeType(df, 'Summer', str)
+df = cw.combCol(df, 'Comb', 'Name', 'Summer')
+
 #Import DF to csv
 def impCsv(x):
-    return x.to_csv('../output/TransferLigas.csv', header=True, index=False)
+    return x.to_csv('./output/TransferLigas.csv', header=True, index=False)
 
 impCsv(df)
