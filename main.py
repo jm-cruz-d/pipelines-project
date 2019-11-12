@@ -39,7 +39,7 @@ def main():
             if name == player:  
                 newDF = newDF.append(transfers.loc[transfers['Comb'] == name])
     if newDF.empty:
-        return 'Not coincidence this year and league'
+        return 'Not coincidence'
     else:
         return newDF[newDF['Summer']==year]
        
