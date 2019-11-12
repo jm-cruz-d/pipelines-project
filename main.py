@@ -3,6 +3,8 @@ import argparse
 import subprocess
 import chardet 
 import pandas as pd
+from fpdf import FPDF
+
 
 def openDf(file):
     with open(file, 'rb') as f:
@@ -36,10 +38,21 @@ def main():
         for player in league['Comb']:
             if name == player:  
                 newDF = newDF.append(transfers.loc[transfers['Comb'] == name])
-            #else:
-                #newDF = newDF.append(pd.Series(['Castolo', 'London Blue', 'Premier League', 'Internazionale', year, 100, 'Castolo2020'], index=['Name', 'Team_from', 'League_from', 'Team_to', 'Summer', 'Transfer_fee', 'Name-season']), ignore_index=True)
-    return print(newDF[newDF['Summer']==year])
+    if newDF.empty:
+        return 'Not coincidence this year and league'
+    else:
+        return newDF[newDF['Summer']==year]
+       
+#def createPDF(x):
+#    pdf = FPDF()
+#    pdf.add_page()
+#    pdf.image("./output/castolo.jpeg", x=60, y=30, w=100)
+#    pdf.set_font("Arial", size=12)
+#    pdf.ln(85)  # move 85 down
+#    pdf.cell(200, 5, txt=x, ln=1, align="C")
+#    return pdf.output("./output/result.pdf")
 
+#createPDF(main())
 
 if __name__=="__main__":
-    main()
+    print(main())
