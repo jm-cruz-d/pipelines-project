@@ -43,6 +43,7 @@ def main():
     else:
         return newDF[newDF['Summer']==year]
        
+#Try to create a PDF with result
 #def createPDF(x):
 #    pdf = FPDF()
 #    pdf.add_page()
